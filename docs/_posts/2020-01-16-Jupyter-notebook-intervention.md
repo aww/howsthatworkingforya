@@ -30,15 +30,15 @@ In this context I mean that you can run one or many times and it doesn't matter,
 
 For example, let's say you have DataFrame with a `clicks` column and you need a logarithmic version of it.
 ***BAD***:
-```
+```python
 df['clicks'] = np.log(df['clicks'])  # Running this two or more times will give you weird results!
 ```
 Instead the best thing to do is
-```
+```python
 df['clicks_log'] = np.log(df['clicks'])
 ```
 or if you really don't want to create a new column then load the clicks data and transform it in the same cell
-```
+```python
 df = get_data()
 df['clicks'] = df['clicks'].log()
 ```
@@ -49,7 +49,7 @@ Do you have three different DataFrames in your global namespace called `users`, 
 You just can't make up your mind, you got lazy with your typing, and you are only really using `usr` now; that's cool.
 But guess what, you forgot to change the reference to `user` to `usr` in that one.
 Protect yourself by carefully cleaning up after yourself:
-```
+```python
 usr = user
 del user
 ```
@@ -66,7 +66,7 @@ as `x`, `x2`, `x3`, `morestuff`, and `result`.
 You aren't too proud of that naming "convention" but you are busy person!
 There is an easy solution. **Wrap stuff like this in a verbosely named throw-away function** such as
 
-```
+```python
 def plot_mindblowing_3d_cummulative_histo_dendrite(df):
   x = ...
   x2 = ...
@@ -77,10 +77,15 @@ That way only the function pollutes your namespace.
 The risk is that somewhere further along you will intended to reuse the name `result`,
 ovewriting it with some new result,
 but you accidently do something like
-```
+```python
 ...
 resul = ...
 _, ax = plt.subplots()
 ax.plot(result)
 ```
 and are very confused by the "results."
+
+By the way, you can get a list of globals, filtering out some noise, with
+```python
+list(filter(lambda x: not x.startswith('_'), globals().keys()))
+```
