@@ -89,3 +89,7 @@ By the way, you can get a list of globals, filtering out some noise, with
 ```python
 list(filter(lambda x: not x.startswith('_'), globals().keys()))
 ```
+
+# Resources
+
+* [Boosting Your Jupyter Notebook Productivity @ Towards Data Science](https://towardsdatascience.com/jupyter-notebook-hints-1f26b08429ad) is a nice survey mostly focusing on magics in Jupyter.
